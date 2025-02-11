@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+      <html>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+.checked {
+  color: orange;
+}
+</style>
+        
+
+    
+ <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <style>
+             *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --gradient: linear-gradient(45deg, #ff3366, #ff6b6b, #4834d4, #686de0);
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --border: 1px solid rgba(255, 255, 255, 0.1);
+            --shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        }
+
+        body {
+            background: #0a0a0a;
+            min-height: 100vh;
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 1.2rem 5%;
+            backdrop-filter: blur(12px);
+            background: var(--glass-bg);
+            border-bottom: var(--border);
+            z-index: 1000;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: var(--shadow);
+        }
+
+        .navbar.scrolled {
+            padding: 0.8rem 5%;
+            background: rgba(10, 10, 10, 0.95);
+        }
+
+        .navbar-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradient 8s linear infinite;
+            background-size: 300%;
+            letter-spacing: -0.5px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            position: relative;
+            padding: 0.5rem 0;
+            transition: all 0.3s ease;
+            font-size: 1.05rem;
+            letter-spacing: 0.3px;
+        }
+
+        .nav-links a::before {
+            content: '';
+            position: absolute;
+            top: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gradient);
+            background-size: 300%;
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            right: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gradient);
+            background-size: 300%;
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #fff;
+            text-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
+        }
+
+        .nav-links a:hover::before,
+        .nav-links a:hover::after {
+            width: 100%;
+            animation: gradient 8s linear infinite;
+        }
+
+        .mobile-nav-toggle {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            position: relative;
+            z-index: 1001;
+            border-radius: 50%;
+            transition: background-color 0.3s ease;
+        }
+
+        .mobile-nav-toggle:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .mobile-nav-toggle .bar {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 2px;
+            background: white;
+            transition: all 0.4s ease;
+        }
+
+        .mobile-nav-toggle .bar:nth-child(1) { top: 14px; }
+        .mobile-nav-toggle .bar:nth-child(2) { top: 19px; }
+        .mobile-nav-toggle .bar:nth-child(3) { top: 24px; }
+
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                height: 100vh;
+                width: 80%;
+                max-width: 400px;
+                background: linear-gradient(135deg, rgba(10, 10, 10, 0.99), rgba(20, 20, 20, 0.99));
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: 2rem;
+                transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+                box-shadow: -10px 0 30px rgba(0, 0, 0, 0.5);
+                padding: 2rem;
+                backdrop-filter: blur(10px);
+            }
+
+            .nav-links::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.03));
+                pointer-events: none;
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .nav-links a {
+                font-size: 1.2rem;
+                opacity: 0;
+                transform: translateX(20px);
+                transition: all 0.4s ease;
+            }
+
+            .nav-links.active a {
+                opacity: 1;
+                transform: translateX(0);
+            }
+
+            .nav-links a:nth-child(1) { transition-delay: 0.1s; }
+            .nav-links a:nth-child(2) { transition-delay: 0.2s; }
+            .nav-links a:nth-child(3) { transition-delay: 0.3s; }
+            .nav-links a:nth-child(4) { transition-delay: 0.4s; }
+            .nav-links a:nth-child(5) { transition-delay: 0.5s; }
+
+            .mobile-nav-toggle {
+                display: block;
+            }
+
+            .mobile-nav-toggle.active .bar:nth-child(1) {
+                transform: translate(-50%, 5px) rotate(45deg);
+                width: 24px;
+            }
+
+            .mobile-nav-toggle.active .bar:nth-child(2) {
+                opacity: 0;
+            }
+
+            .mobile-nav-toggle.active .bar:nth-child(3) {
+                transform: translate(-50%, -5px) rotate(-45deg);
+                width: 24px;
+            }
+
+            .overlay {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.5);
+                opacity: 0;
+                visibility: hidden;
+                transition: all 0.4s ease;
+                backdrop-filter: blur(4px);
+            }
+
+            .overlay.active {
+                opacity: 1;
+                visibility: visible;
+            }
+        }
+
+
+            .section-title {
+                font-size: 3rem;
+            }
+
+            .section-description {
+                font-size: 1rem;
+                padding: 0 1rem;
+            }
+
+       section {
+            min-height: 100vh;
+            padding: 120px 5% 80px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        section:nth-child(even) {
+            background: var(--section-bg);
+        }
+
+        .section-content {
+            max-width: 1400px;
+            width: 100%;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .section-title {
+            font-size: 8vw;
+            font-weight: 800;
+            margin-bottom: 2rem;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradient 8s linear infinite;
+            background-size: 300%;
+            line-height: 1.1;
+            text-transform: uppercase;
+            letter-spacing: -2px;
+        }
+
+        .section-description {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.6;
+            opacity: 0.8;
+          color: white;
+        }
+        .main-container {
+            display: flex;
+            margin-top: 60px;
+        }
+        .text-white {
+          color:white;
+        }
+        .content {
+            margin-left: 100px;
+            padding: 2rem;
+            width: calc(100% - 250px);
+        }
+        /* Card Styles */
+        .card {
+            background: rgba(0, 0, 0, 0.8);
+            border-radius: 8px;
+            padding: 2rem;
+            margin-top:2rem
+            margin-left: 4rem;
+            margin-right:4rem;
+            margin-bottom: 4rem;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(76, 175, 80, 0.2);
+            transition: transform 0.3s ease;
+        }
+        /*Video Background*/
+        .video {
+          position: fixed;
+  right: 0;
+  bottom: 0;
+  min-width: 100%; 
+  min-height: 100%;
+  object-fit: cover;
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+        }
+        .viewport-header {
+  position: relative;
+  height: 100%;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+    #myVideo {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  min-width: 100%; 
+  min-height: 100%;
+}
+.heading{
+  background: var(--gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradient 8s linear infinite;
+}
+
+  </style>
+  
+  <body>
+      <!--Background-->
+    <video autoplay muted loop id="myVideo">
+        <source class="video" src="mc.mp4" type="video/mp4">
+        Your browser does not support HTML5 video.
+      </video>
+      
+    <nav class="navbar">
+        <div class="navbar-container">
+            <div class="logo">Luminous SMP</div>
+            <button class="mobile-nav-toggle" aria-label="Toggle navigation">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </button>
+            
+            
+        </div>
+    </nav>
+   
+    <div class="overlay"></div>
+     
+    <div class="viewport-header">
+    <div class="card">
+<div class="main-container">
+  <div class="content">
+  
+        <div class="bg-effect bg-effect-1"></div>
+        <div class="section-content">
+          <marquee>
+          <h1 class="heading">Media/Creator Role Application </h1>
+           </marquee>
+            <p class="text-white">
+               Are you interested in promoting your social media accounts to this SMP? If so you have come to the right place. You can create videos about the SMP and gain the Media Role in the Discord server just by filling the form given below! The Media Rank will be decided on the views you get not the total number of subscribers of your channel.</p>
+               <h2 class="text-white">Role Requirements:</h2>
+               <h3 class="text-white">Creator:</h3>
+<p class="text-white">
+<b>Youtube:</b>
+100+ Views Average (On Luminous Videos)
+2 Already posted Videos or Shorts (Luminous related)
+
+</p>
+<div class="text-white">
+  <p>
+<b>TikTok:</b>
+250+ Views Average (On Luminous Videos)
+4 Already posted Videos (Luminous related)
+
+  </p>
+  <p>
+<b>Twitch:</b>
+75+ Views Average (On Luminous Videos)
+A 1h 30m stream already completed (Luminous related)
+
+  </p>
+  <h3>Media:</h3>
+  <p>
+    
+
+<b>Youtube:</b>
+1,000+ Views Average (On Luminousl Videos)
+2 Already posted Videos or Shorts (Luminous related)
+</p>
+<p>
+<b>TikTok</b>
+1,500+ Views Average (On Luminous Videos)
+4 Already posted Videos (Luminous related)</p><p>
+<b>Twitch:</b>
+250+ Views Average (On Luminous Videos)
+A 1h 30m stream already completed Luminous related)
+  </p>
+</div>
+        </div>
+        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSeaJ2UZAnxUJVuXSH1efjd4OkV4VWixgi1Z9LNNJWBteT09Vw/viewform?embedded=true" width="640" height="1315" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+    <style>
+.alert {
+  padding: 20px;
+  background-color: #f44336;
+  color: white;
+  opacity: 1;
+  transition: opacity 0.6s;
+  margin-bottom: 15px;
+}
+.alert.success {background-color: #04AA6D;}
+.alert.info {background-color: #2196F3;}
+.alert.warning {background-color: #ff9800;}
+
+.closebtn {
+  margin-left: 15px;
+  color: white;
+  font-weight: 
+  .alert {
+  padding: 20px;
+  background-color: #f44336;
+  color: white;
+  opacity: 1;
+  transition: opacity 0.6s;
+  margin-bottom: 15px;
+}
+
+.alert.success {background-color: #04AA6D;}
+.alert.info {background-color: #2196F3;}
+.alert.warning {background-color: #ff9800;}
+.closebtn {
+  margin-left: 15px;
+  color: white;
+  font-weight: bold;
+  float: right;
+  font-size: 22px;bold;
+  float: right;
+  font-size: 22px;
+  line-height: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.closebtn:hover {
+  color: black;
+}
+</style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+.btn {
+  background-color: DodgerBlue;
+  border: none;
+  color: white;
+  padding: 12px 30px;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+/* Darker background on mouse-over */
+.btn:hover {
+  background-color: RoyalBlue;
+}
+</style>
+<h1 class="text-white">Download Proof</h1>
+<p class="text-white">Download the PDF file given below as proof that you have attempted to gain the Media Role. </p>
+<a href="Media Application Form.pdf" download><button class="btn"><i class="fa fa-download"></i> Download</button>
+<script>
+var close = document.getElementsByClassName("closebtn");
+var i;
+
+for (i = 0; i < close.length; i++) {
+  close[i].onclick = function(){
+    var div = this.parentElement;
+    div.style.opacity = "0";
+    setTimeout(function(){ div.style.display = "none"; }, 600);
+  }
+}
+</script>
+
+<p class="text-white">This website is new and will have more features in the future!!!</p>
+  
+
+                      </div>
+  
+                
+    
+      
+
+ 
+        </div>
+        </div>
+        
+    </section>
+    </body>
+    
+        <style type ="text/css" >
+          .footer{ 
+              position: fixed;     
+              text-align: center;    
+              bottom: 0px; 
+              width: 100%;
+          }  
+       </style>
+       <footer>
+       
+       <div class="footer">All Rights Reserved. Copyright© 2025-2025 Luminous SMP.</div>
+       </footer>
+       </div>
+    </html>
